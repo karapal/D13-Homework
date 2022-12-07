@@ -22,15 +22,15 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       */
       #myTaskList{
         background-color: rgb(213, 112, 156);
+        border: solid;
+        font-weight: bolder;
+        font-size: larger;
       }
       
-      #removelast{
-        padding: 3px 17px;
-      }
-      #removefirst{
-        padding: 4px 18px;
-      }
       
+      .button {
+        padding: 7px 15px;
+      }
 
 
       
@@ -46,17 +46,17 @@ The user should be able to see the list of tasks, add new ones, delete existing 
         ><br /><br />
     
         <input type="text" id="newTask" />
-        <input type="button" value="Add new Task" onclick="addNewTask()" />
+        <input type="button" class="button" value="Add new Task" onclick="addNewTask()" />
     
         <!-- EXERCISE 3
             Create a button "Remove Last Task" to trigger the method "removeLast"
             -->
-            <input id="removelast" type="button" value="Remove Last Task" onclick="removeLast()" />
+            <input id="removelast" type="button" class="button" value="Remove Last Task" onclick="removeLast()" />
 
         <!-- EXERCISE 4
             Create a button "Remove First Task" to trigger the method "removeFirst"
             -->
-            <input id ="removefirst" type="button" value="Remove First Task" onclick="removeFirst()" />
+            <input id ="removefirst" type="button" class="button" value="Remove First Task" onclick="removeFirst()" />
     
         <ul id="myTaskList">
 
@@ -66,14 +66,14 @@ The user should be able to see the list of tasks, add new ones, delete existing 
     
         <input type="color" placeholder="Color" id="colorPicker" />
         <input
-          type="button"
+          type="button" class="button"
           value="Change task background"
           onclick="changeTaskBackgroundColor()"
         />
     
         <hr />
     
-        <input type="button" value="Sort" onclick="bubblesort()" />
+        <input type="button" class="button" value="Sort" onclick="bubblesort()" />
     
         <script>
           /* EXERCISE 5: 
@@ -83,28 +83,51 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                     - Use the document.createElement to create the new List Item
                     - Append the LI child to the UL
                 */
-               function newTask() {
-                document.getElementById('myTaskList') += <div onclick="addNewTask(event)">  </div>;
-                let node = document.createElement('li');
-                document.querySelector('ul').appendChild(node);
-
-               }
+              function addNewTask() {
+                let ulNode = document.getElementById('myTaskList');
+                let inputNode = document.getElementById('newTask');
+                let liNode = document.createElement('li');
+                liNode.innerHTML = inputNode.value;
+                ulNode.appendChild(liNode);
+              }
 
 
     
           /* EXERCISE 6: 
                     Create a method "removeLast" which removes the last item from the task list
                 */
-               
+                function removeLast() {
+                  let removeLast = document.getElementById('myTaskList');
+                  removeLast.removeChild(removeLast.lastElementChild);
+                }
+
+
 
     
           /* EXERCISE 7: 
                     Create a method "removeFirst" which removes the first item from the task list
                 */
-    
+                  function removeFirst() {
+                  let removeFirst = document.getElementById('myTaskList');
+                  removeFirst.removeChild(removeFirst.firstElementChild);
+                }
+
+                
+
           /* EXERCISE 8: 
                    Create a method "getTasksAsArray" which returns, and prints to the console an array containing the tasks as strings
                 */
+               function getTasksAsArray() {
+                let liNodes= document.getElementsByTagName('li');
+                let arr1 =[]
+                for (let li of liNodes){
+                  arr1.push(li.innerText);
+                }
+                console.log(arr1);
+               }
+
+
+
     
           /* EXERCISE 9:
                    Create a method "changeTaskBackgroundColor" which takes the color from the color picker with an 
